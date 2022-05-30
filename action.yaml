@@ -11,7 +11,7 @@ inputs:
     description: 'The working directory containing the SAM app'
     required: true
   template-file:
-    description: 'The name CF template for the application. This defaults to template.yaml'
+    description: 'The name of the CF template for the application. This defaults to template.yaml'
     required: false
     default: template.yaml
 
@@ -21,16 +21,6 @@ runs:
   steps:
     - name: Change to working directory
       run: cd ${{ inputs.working-directory }}
-      shell: bash
-
-    - name: Where are we?
-      working-directory: ${{ inputs.working-directory }}
-      run: pwd
-      shell: bash
-
-    - name: What do we have?
-      working-directory: ${{ inputs.working-directory }}
-      run: ls -laH
       shell: bash
 
     - name: Upload Lambdas to S3
