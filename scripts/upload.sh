@@ -6,7 +6,13 @@ read -ra LIST <<< "$RESOURCES"
 
 echo "Packaging SAM app"
 PROFILES=("${LIST[@]/%/="$SIGNING_PROFILE"}")
-sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml --signing-profiles "${PROFILES[*]}"
+if [ "${#PROFILES[@]}" -eq 0 ]
+then
+  # No resources require signing
+  sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml
+else
+  sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml --signing-profiles "${PROFILES[*]}"
+fi
 
 echo "Writing Lambda provenance"
 ./write-lambda-provenance.sh
