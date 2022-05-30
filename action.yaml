@@ -1,0 +1,43 @@
+name: 'Upload Lambdas'
+description: 'Packages and uploads'
+inputs:
+  artifact-bucket-name:
+    description: 'The name of the artifact S3 bucket'
+    required: true
+  signing-profile-name:
+    description: 'The name of the Signing Profile'
+    required: true
+  working-directory:
+    description: 'The working directory containing the SAM app'
+    required: true
+  template-file:
+    description: 'The name CF template for the application. This defaults to template.yaml'
+    required: false
+    default: template.yaml
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Change to working directory
+      run: cd ${{ inputs.working-directory }}
+      shell: bash
+
+    - name: Where are we?
+      working-directory: ${{ inputs.working-directory }}
+      run: pwd
+      shell: bash
+
+    - name: What do we have?
+      working-directory: ${{ inputs.working-directory }}
+      run: ls -laH
+      shell: bash
+
+    - name: Upload Lambdas to S3
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        ARTIFACT_BUCKET: ${{ inputs.artifact-bucket-name }}
+        SIGNING_PROFILE: ${{ inputs.signing-profile-name }}
+        TEMPLATE_FILE: ${{ inputs.template-file }}
+      run: ${{ github.action_path }}/scripts/upload.sh
+      shell: bash
