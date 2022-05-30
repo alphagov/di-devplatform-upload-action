@@ -15,7 +15,8 @@ else
 fi
 
 echo "Writing Lambda provenance"
-./write-lambda-provenance.sh
+yq '.Resources.* | select(has("Type") and .Type == "AWS::Serverless::Function") | .Properties.CodeUri' cf-template.yaml \
+    | xargs -L1 -I{} aws s3 cp "{}" "{}" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA"
 
 echo "Zipping the CloudFormation template"
 zip template.zip cf-template.yaml
