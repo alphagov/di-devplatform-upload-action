@@ -2,7 +2,7 @@
 
 This is an action that allows you to upload a built SAM application to S3 using GitHub Actions.
 
-The action packages and uploads the application and adds provenance metadata to 
+The action packages, signs the Lambda functions, and uploads the application to the specified S3 bucket. 
 
 ## Action Inputs
 
