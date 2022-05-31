@@ -2,7 +2,7 @@
 
 This is an action that allows you to upload a built SAM application to S3 using GitHub Actions.
 
-The action packages and uploads the application and adds provenance metadata to 
+The action packages and uploads the application and adds provenance metadata to
 
 ## Action Inputs
 
@@ -13,7 +13,7 @@ The action packages and uploads the application and adds provenance metadata to
 | working-directory    | true     | The working directory containing the SAM app and the template file              | ./sam-app            |
 | template-file        | false    | The name of the CF template for the application. This defaults to template.yaml | custom-template.yaml |
 
-## Usage Example 
+## Usage Example
 
 ```yaml
 - name: Deploy SAM app
@@ -24,3 +24,12 @@ The action packages and uploads the application and adds provenance metadata to
     working-directory: ./sam-app
     template-file: custom-template.yaml
 ```
+
+## Requirements
+
+- pre-commit:
+
+  ```shell
+  brew install pre-commit
+  pre-commit install -tpre-commit -tprepare-commit-msg -tcommit-msg
+  ```
