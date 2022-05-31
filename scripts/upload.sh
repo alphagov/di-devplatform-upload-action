@@ -1,18 +1,19 @@
 #! /bin/bash
 
+set -eu
+
 echo "Parsing resources to be signed"
 RESOURCES="$(yq '.Resources.* | select(has("Type") and .Type == "AWS::Serverless::Function") | path | .[1]' "$TEMPLATE_FILE" | xargs)"
 read -ra LIST <<< "$RESOURCES"
-
-echo "Packaging SAM app"
 PROFILES=("${LIST[@]/%/="$SIGNING_PROFILE"}")
 if [ "${#PROFILES[@]}" -eq 0 ]
 then
-  # No resources require signing
-  sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml
-else
-  sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml --signing-profiles "${PROFILES[*]}"
+  echo "No resources that require signing found"
+  exit 1
 fi
+
+echo "Packaging SAM app"
+sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml --signing-profiles "${PROFILES[*]}"
 
 echo "Writing Lambda provenance"
 yq '.Resources.* | select(has("Type") and .Type == "AWS::Serverless::Function") | .Properties.CodeUri' cf-template.yaml \
