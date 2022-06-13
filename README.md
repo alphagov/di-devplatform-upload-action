@@ -2,7 +2,7 @@
 
 This is an action that allows you to upload a built SAM application to S3 using GitHub Actions.
 
-The action packages, signs the Lambda functions, and uploads the application to the specified S3 bucket. 
+The action packages, signs the Lambda functions, and uploads the application to the specified S3 bucket.
 
 ## Action Inputs
 
@@ -15,9 +15,11 @@ The action packages, signs the Lambda functions, and uploads the application to 
 
 ## Usage Example
 
+Pull in the action in your workflow as below, making sure to specify the release version you require.
+
 ```yaml
 - name: Deploy SAM app
-  uses: alphagov/di-devplatform-upload-action@v1
+  uses: alphagov/di-devplatform-upload-action@<version_number>
   with:
     artifact-bucket-name: ${{ secrets.ARTIFACT_BUCKET_NAME }}
     signing-profile-name: ${{ secrets.SIGNING_PROFILE_NAME }}
