@@ -29,5 +29,6 @@ runs:
         ARTIFACT_BUCKET: ${{ inputs.artifact-bucket-name }}
         SIGNING_PROFILE: ${{ inputs.signing-profile-name }}
         TEMPLATE_FILE: ${{ inputs.template-file }}
+        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: ${{ github.action_path }}/scripts/upload.sh
       shell: bash
