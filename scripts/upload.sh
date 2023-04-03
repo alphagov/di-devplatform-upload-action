@@ -19,6 +19,7 @@ else
   sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml --signing-profiles "${PROFILES[*]}"
 fi
 
+# This only gets set if there is a tag on the current commit.
 GIT_TAG=`git describe --tags --exact-match`
 
 echo "Writing Lambda provenance"
