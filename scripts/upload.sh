@@ -19,7 +19,7 @@ else
   sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml --signing-profiles "${PROFILES[*]}"
 fi
 
-GIT_TAG=`git describe --tags`
+GIT_TAG=`git describe --tags --exact-match`
 
 echo "Writing Lambda provenance"
 yq '.Resources.* | select(has("Type") and .Type == "AWS::Serverless::Function") | .Properties.CodeUri' cf-template.yaml \
