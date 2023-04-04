@@ -20,7 +20,7 @@ else
 fi
 
 # This only gets set if there is a tag on the current commit.
-GIT_TAG=$(git describe --tags --exact-match||true)
+GIT_TAG=$(git describe --tags --first-parent --always)
 
 echo "Writing Lambda provenance"
 yq '.Resources.* | select(has("Type") and .Type == "AWS::Serverless::Function") | .Properties.CodeUri' cf-template.yaml \
