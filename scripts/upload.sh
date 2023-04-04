@@ -33,4 +33,4 @@ echo "Zipping the CloudFormation template"
 zip template.zip cf-template.yaml
 
 echo "Uploading zipped CloudFormation artifact to S3"
-aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA,commitmessage=$COMMIT_MESSAGE,author=,committag="
+aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA,committag=$GIT_TAG"
