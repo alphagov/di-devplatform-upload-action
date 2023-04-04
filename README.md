@@ -53,3 +53,14 @@ NOTE: Until v3 is released, you will need to point both v1 and v2 to the latest 
 ### Breaking changes
 
 Release a new major version as normal following semantic versioning.
+
+### Preparing a release
+
+When working on a PR branch, create a release with the target version, but append -beta to the tag name.
+
+e.g.
+
+`git tag v3.1-beta`
+
+You can then navigate to the release page, and create a pre-release to validate that the tag is working as expected.
+After you've merged the PR, then apply the correct tag for your release.
