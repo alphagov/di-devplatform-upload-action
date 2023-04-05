@@ -4,6 +4,13 @@ This is an action that allows you to upload a built SAM application to S3 using 
 
 The action packages, signs the Lambda functions, and uploads the application to the specified S3 bucket.
 
+It adds the following metadata to the S3 object:
+
+- committag - The tag of the git commit (if present), this falls back to a shortened commit has.
+- repository - The git repository where the file was loaded from
+- commitmessage - The first 50 characters of the git commit message, trimmed to the following regex: `tr -dc '[:alnum:]- '`
+- commitsha - The full git commitsha of the git commit.
+
 ## Action Inputs
 
 | Input                | Required | Description                                                                     | Example              |
