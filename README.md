@@ -4,6 +4,13 @@ This is an action that allows you to upload a built SAM application to S3 using 
 
 The action packages, signs the Lambda functions, and uploads the application to the specified S3 bucket.
 
+It adds the following metadata to the S3 object:
+
+- committag - The tag of the git commit (if present), this falls back to a shortened commit has.
+- repository - The git repository where the file was loaded from
+- commitmessage - The first 50 characters of the git commit message, trimmed to the following regex: `tr -dc '[:alnum:]- '`
+- commitsha - The full git commitsha of the git commit.
+
 ## Action Inputs
 
 | Input                | Required | Description                                                                     | Example              |
@@ -53,3 +60,14 @@ NOTE: Until v3 is released, you will need to point both v1 and v2 to the latest 
 ### Breaking changes
 
 Release a new major version as normal following semantic versioning.
+
+### Preparing a release
+
+When working on a PR branch, create a release with the target version, but append -beta to the tag name.
+
+e.g.
+
+`git tag v3.1-beta`
+
+You can then navigate to the release page, and create a pre-release to validate that the tag is working as expected.
+After you've merged the PR, then apply the correct tag for your release.
