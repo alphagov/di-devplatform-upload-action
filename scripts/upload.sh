@@ -14,9 +14,9 @@ echo "Packaging SAM app"
 if [ "${#PROFILES[@]}" -eq 0 ]
 then
   echo "No resources that require signing found"
-  sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml
+  sam package --s3-bucket="$ARTIFACT_BUCKET" --template-file="$TEMPLATE_FILE" --output-template-file=cf-template.yaml
 else
-  sam package --s3-bucket="$ARTIFACT_BUCKET" --output-template-file=cf-template.yaml --signing-profiles "${PROFILES[*]}"
+  sam package --s3-bucket="$ARTIFACT_BUCKET" --template-file="$TEMPLATE_FILE" --output-template-file=cf-template.yaml --signing-profiles "${PROFILES[*]}"
 fi
 
 # This only gets set if there is a tag on the current commit.
