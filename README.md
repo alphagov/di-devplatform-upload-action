@@ -17,7 +17,7 @@ It adds the following metadata to the S3 object:
 |----------------------|----------|---------------------------------------------------------------------------------|----------------------|
 | artifact-bucket-name | true     | The name of the artifact S3 bucket                                              | artifact-bucket-1234 |
 | signing-profile-name | true     | The name of the Signing Profile resource in AWS                                 | signing-profile-1234 |
-| working-directory    | true     | The working directory containing the SAM app and the template file              | ./sam-app            |
+| working-directory    | false    | The working directory containing the SAM app and the template file              | ./sam-app            |
 | template-file        | false    | The name of the CF template for the application. This defaults to template.yaml | custom-template.yaml |
 
 ## Usage Example
