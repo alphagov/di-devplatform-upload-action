@@ -23,6 +23,8 @@ fi
 GIT_TAG=$(git describe --tags --first-parent --always)
 # Cleaning the commit message to remove special characters
 COMMIT_MSG=$(echo $COMMIT_MESSAGE | tr '\n' ' ' | tr -dc '[:alnum:]- ' | cut -c1-50)
+# Gets merge time to main
+MERGE_TIME=$(git log -1 --format=%cd --date=format:'%Y-%m-%d %H:%M:%S')
 
 echo "Writing Lambda provenance"
 yq '.Resources.* | select(has("Type") and .Type == "AWS::Serverless::Function") | .Properties.CodeUri' cf-template.yaml \
@@ -35,4 +37,4 @@ echo "Zipping the CloudFormation template"
 zip template.zip cf-template.yaml
 
 echo "Uploading zipped CloudFormation artifact to S3"
-aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA,committag=$GIT_TAG,commitmessage=$COMMIT_MSG"
+aws s3 cp template.zip "s3://$ARTIFACT_BUCKET/template.zip" --metadata "repository=$GITHUB_REPOSITORY,commitsha=$GITHUB_SHA,committag=$GIT_TAG,commitmessage=$COMMIT_MSG,mergetime=$MERGE_TIME"
