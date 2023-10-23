@@ -1,3 +1,7 @@
+# Archived
+
+This repository has been archived. We will continue to develop it at the new location: [govuk-one-login/devplatform-upload-action][1]
+
 # Upload Action
 
 This is an action that allows you to upload a built SAM application to S3 using GitHub Actions.
@@ -71,3 +75,5 @@ e.g.
 
 You can then navigate to the release page, and create a pre-release to validate that the tag is working as expected.
 After you've merged the PR, then apply the correct tag for your release.
+
+[1]: https://github.com/govuk-one-login/devplatform-upload-action

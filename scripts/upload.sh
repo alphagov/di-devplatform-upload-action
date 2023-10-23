@@ -2,6 +2,8 @@
 
 set -eu
 
+echo "::warning title=alphagov/di-devplatform-upload-action::The repository hosting this upload action has been archived. New location https://github.com/govuk-one-login/devplatform-upload-action"
+
 echo "Parsing resources to be signed"
 RESOURCES="$(yq '.Resources.* | select(has("Type") and .Type == "AWS::Serverless::Function" or .Type == "AWS::Serverless::LayerVersion") | path | .[1]' "$TEMPLATE_FILE" | xargs)"
 read -ra LIST <<< "$RESOURCES"
